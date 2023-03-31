@@ -8,7 +8,7 @@ import java.util.Random;
  */
 @SuppressWarnings({"all"})
 public class Tools {
-    int initializeNum = 2;
+    int score = 0; //游戏得分,在flashScore()修改.
     int[][] temp; //传入待操作的数组
     int x; //表示二维数组的长度
     int y; //表示每个一维数组的长度
@@ -20,7 +20,7 @@ public class Tools {
         temp = arr;
         x = temp.length;
         y = temp[0].length;
-        for (int i = 0; i < initializeNum; i++) {
+        for (int i = 0; i < 2; i++) {
             int randomNum1 = new Random().nextInt(temp.length);
             int randomNum2 = new Random().nextInt(temp[0].length);
             while (temp[randomNum1][randomNum2] == 0) {
@@ -64,6 +64,7 @@ public class Tools {
             }
         }
         System.out.println();
+        System.out.println("           得分: " + score);
     } //显示画面
 
     public void random(String judge, int x) {
@@ -110,7 +111,7 @@ public class Tools {
 
         arrList.clear(); //最后清空集合,方便下一次操作
 
-        random("up",2);
+        random("up", 2);
         lastMove = "up";
     } //模拟玩家做出向上滑动的操作 0
 
@@ -141,7 +142,7 @@ public class Tools {
 
         arrList.clear(); //最后清空集合,方便下一次操作
 
-        random("down",2);
+        random("down", 2);
         lastMove = "down";
     } //模拟玩家做出向下滑动的操作 1
 
@@ -156,7 +157,7 @@ public class Tools {
         sort(arrList);
         arrList.clear();
 
-        random("left",2);
+        random("left", 2);
         lastMove = "left";
     }//模拟玩家做出向左滑动的动作 0
 
@@ -203,7 +204,7 @@ public class Tools {
 
         arrList.clear();
 
-        random("right",2);
+        random("right", 2);
         lastMove = "right";
     }//模拟玩家做出向右滑动的动作 1
 
@@ -230,9 +231,9 @@ public class Tools {
                     for (int i = temp.length - 1; i > 0; i--) {
                         if (temp[i] != 0) {
                             if (temp[i] == temp[i - 1]) {
-                                temp[i - 1] *= 2;
-                                temp[i] = 0;
-                                break;
+                                flashScore(temp[i]);
+                                temp[i] *= 2;
+                                temp[i - 1] = 0;
                             }
                         } //嵌套if避免不必要的判断
                     }
@@ -243,9 +244,9 @@ public class Tools {
                     for (int i = 0; i < temp.length - 1; i++) {
                         if (temp[i] != 0) {
                             if (temp[i] == temp[i + 1]) {
-                                temp[i + 1] *= 2;
-                                temp[i] = 0;
-                                break;
+                                flashScore(temp[i]);
+                                temp[i] *= 2;
+                                temp[i + 1] = 0;
                             }
                         } //嵌套if避免不必要的判断
                     }
@@ -253,6 +254,8 @@ public class Tools {
                 break;
         }
     }//合并自己构造的数组中的两个相同的数字，同时计算分数的逻辑也写在此方法内,便于统一管理
+
+    public void flashScore(int x){} //现实得分的方法 x为相消的数,比如相消:2+2,x传入的就是2
 
     public boolean gameIsLive(int[][] arr) {
         return true;
