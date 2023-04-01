@@ -13,7 +13,7 @@ public class Game2048 {
         char start = ms.next().charAt(0);
         if (start == 'v') {
             myTool.initialize(game);
-            System.out.println("分别用 w/W a/A s/S d/D 控制 上 左 下 右 滑动.");
+            System.out.println("分别用w/W,a/A,s/S,d/D控制上,左,下,右滑动. 按r/R可撤回上一步");
             System.out.println("注意事项: 请勿不断重复同一操作,否则数字不会刷新");
         }
         while (myTool.gameIsLive(game)) {

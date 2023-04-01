@@ -79,7 +79,7 @@ public class Tools {
                 int randomNum1 = new Random().nextInt(temp.length);
                 int randomNum2 = new Random().nextInt(temp[0].length);
                 if (temp[randomNum1][randomNum2] == 0) {
-                    temp[randomNum1][randomNum2] = (new Random().nextInt() > 0.91) ? 2 : 4;
+                    temp[randomNum1][randomNum2] = (new Random().nextDouble() < 0.85) ? 2 : 4;
                 } else {
                     random(judge, 1, showMovePace);
                 }
