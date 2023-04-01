@@ -38,6 +38,10 @@ public class Game2048 {
                 case 68:
                     myTool.right(game);
                     myTool.paintGame(game);
+                    break;
+                case 82:
+                case 114:
+                    myTool.undo();
             }
         }
     }

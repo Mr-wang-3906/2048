@@ -15,9 +15,13 @@ public class Tools {
     ArrayList<int[]> arrList = new ArrayList<>();//定义一个数组集合,方便进行游戏向上和向下下滑动的逻辑实现
     String lastMove;
     int movePace = 0;
+    String undo_lastMove;
+    int undo_movePace;
+    int [][] undo_arr;
 
     public void initialize(int[][] arr) {
         temp = arr;
+        undo_arr = new int[arr.length][arr[0].length];
         x = temp.length;
         y = temp[0].length;
         for (int i = 0; i < 2; i++) {
@@ -69,15 +73,15 @@ public class Tools {
         System.out.println("           得分: " + score);
     } //显示画面
 
-    public void random(String judge, int x) {
-        if (!(judge.equals(lastMove)) && movePace == 2) {
+    public void random(String judge, int x, int showMovePace) {
+        if (!(judge.equals(lastMove)) && showMovePace == 2) {
             for (int i = 0; i < x; i++) {
                 int randomNum1 = new Random().nextInt(temp.length);
                 int randomNum2 = new Random().nextInt(temp[0].length);
                 if (temp[randomNum1][randomNum2] == 0) {
                     temp[randomNum1][randomNum2] = (new Random().nextInt() > 0.91) ? 2 : 4;
                 } else {
-                    random(judge, x - 1);
+                    random(judge, x - 1, showMovePace);
                 }
             }
             movePace = 0;
@@ -87,6 +91,8 @@ public class Tools {
     } //随机在两个位置生成两个数，小概率是4,大概率是2
 
     public void up(int[][] arr) {
+        copy(arr);
+
         if (movePace < 2) {
             movePace++;
         }
@@ -113,11 +119,13 @@ public class Tools {
 
         arrList.clear(); //最后清空集合,方便下一次操作
 
-        random("up", 2);
+        random("up", 2, movePace);
         lastMove = "up";
     } //模拟玩家做出向上滑动的操作 0
 
     public void down(int[][] arr) {
+        copy(arr);
+
         if (movePace < 2) {
             movePace++;
         }
@@ -144,11 +152,13 @@ public class Tools {
 
         arrList.clear(); //最后清空集合,方便下一次操作
 
-        random("down", 2);
+        random("down", 2, movePace);
         lastMove = "down";
     } //模拟玩家做出向下滑动的操作 1
 
     public void left(int[][] arr) {
+        copy(arr);
+
         if (movePace < 2) {
             movePace++;
         }
@@ -159,11 +169,13 @@ public class Tools {
         sort(arrList);
         arrList.clear();
 
-        random("left", 2);
+        random("left", 2, movePace);
         lastMove = "left";
     }//模拟玩家做出向左滑动的动作 0
 
     public void right(int[][] arr) {
+        copy(arr);
+
         if (movePace < 2) {
             movePace++;
         }
@@ -206,7 +218,7 @@ public class Tools {
 
         arrList.clear();
 
-        random("right", 2);
+        random("right", 2, movePace);
         lastMove = "right";
     }//模拟玩家做出向右滑动的动作 1
 
@@ -275,5 +287,26 @@ public class Tools {
     public boolean gameIsLive(int[][] arr) {
         return true;
     } // 判断游戏是否结束的方法
+
+    public void copy(int[][] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[0].length; j++) {
+                undo_arr[i][j] = arr[i][j];
+            }
+        }
+        undo_movePace = movePace;
+        undo_lastMove = lastMove;
+    } //暂存游戏状态
+
+    public void undo(){
+        for (int i = 0; i < temp.length; i++) {
+            for (int j = 0; j < temp[0].length; j++) {
+                temp[i][j] = undo_arr[i][j];
+            }
+        }
+        movePace = undo_movePace;
+        lastMove = undo_lastMove;
+        paintGame(temp);
+    }//输出暂存的游戏状态
 }
 
