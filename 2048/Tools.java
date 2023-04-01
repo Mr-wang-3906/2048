@@ -81,7 +81,7 @@ public class Tools {
                 if (temp[randomNum1][randomNum2] == 0) {
                     temp[randomNum1][randomNum2] = (new Random().nextInt() > 0.91) ? 2 : 4;
                 } else {
-                    random(judge, x - 1, showMovePace);
+                    random(judge, 1, showMovePace);
                 }
             }
             movePace = 0;
