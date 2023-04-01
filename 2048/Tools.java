@@ -34,7 +34,7 @@ public class Tools {
         System.out.println();
         for (int m = 0; m < y; m++) {
             System.out.print("|");
-            for (int n = 0; n < 5; n++) {
+            for (int n = 0; n < 7; n++) {
                 System.out.print("-");
             }
             System.out.print("|");
@@ -43,21 +43,23 @@ public class Tools {
             System.out.println();
             for (int j = 0; j < arr[i].length; j++) {
                 if (arr[i][j] == 0) {
-                    System.out.print("|" + "  " + " " + "  " + "|");
+                    System.out.print("|" + "   " + " " + "   " + "|");
                 } else {
                     if (arr[i][j] < 10) {
-                        System.out.print("|" + "  " + arr[i][j] + "  " + "|");
+                        System.out.print("|" + "   " + arr[i][j] + "   " + "|");
                     } else if (arr[i][j] < 100) {
-                        System.out.print("|" + " " + arr[i][j] / 10 + " " + arr[i][j] % 10 + " " + "|");
+                        System.out.print("|" + "  " + arr[i][j] / 10 + " " + arr[i][j] % 10 + "  " + "|");
                     } else if (arr[i][j] < 1000) {
-                        System.out.print("|" + " " + arr[i][j] + " " + "|");
+                        System.out.print("|" + " " + arr[i][j] / 100 + " " + arr[i][j] / 10 % 10 + " " + arr[i][j] % 10 + " " + "|");
+                    } else {
+                        System.out.print("|" + arr[i][j] / 1000 + " " + arr[i][j] / 100 % 10 + " " + arr[i][j] / 10 % 10 + " " + arr[i][j] % 10 + "|");
                     }
                 }
             }
             System.out.println();
             for (int m = 0; m < y; m++) {
                 System.out.print("|");
-                for (int n = 0; n < 5; n++) {
+                for (int n = 0; n < 7; n++) {
                     System.out.print("-");
                 }
                 System.out.print("|");
@@ -73,7 +75,7 @@ public class Tools {
                 int randomNum1 = new Random().nextInt(temp.length);
                 int randomNum2 = new Random().nextInt(temp[0].length);
                 if (temp[randomNum1][randomNum2] == 0) {
-                    temp[randomNum1][randomNum2] = (new Random().nextInt() > 0.92) ? 2 : 4;
+                    temp[randomNum1][randomNum2] = (new Random().nextInt() > 0.91) ? 2 : 4;
                 } else {
                     random(judge, x - 1);
                 }
@@ -231,9 +233,15 @@ public class Tools {
                     for (int i = temp.length - 1; i > 0; i--) {
                         if (temp[i] != 0) {
                             if (temp[i] == temp[i - 1]) {
-                                flashScore(temp[i]);
-                                temp[i] *= 2;
-                                temp[i - 1] = 0;
+                                if (temp[i] != 1024) {
+                                    flashScore(temp[i]);
+                                    temp[i] *= 2;
+                                    temp[i - 1] = 0;
+                                } else {
+                                    flashScore(temp[i]);
+                                    temp[i] = 0;
+                                    temp[i - 1] = 0;
+                                }
                             }
                         } //嵌套if避免不必要的判断
                     }
@@ -244,9 +252,15 @@ public class Tools {
                     for (int i = 0; i < temp.length - 1; i++) {
                         if (temp[i] != 0) {
                             if (temp[i] == temp[i + 1]) {
-                                flashScore(temp[i]);
-                                temp[i] *= 2;
-                                temp[i + 1] = 0;
+                                if (temp[i] != 1024) {
+                                    flashScore(temp[i]);
+                                    temp[i] *= 2;
+                                    temp[i + 1] = 0;
+                                } else {
+                                    flashScore(temp[i]);
+                                    temp[i] = 0;
+                                    temp[i + 1] = 0;
+                                }
                             }
                         } //嵌套if避免不必要的判断
                     }
@@ -255,7 +269,8 @@ public class Tools {
         }
     }//合并自己构造的数组中的两个相同的数字，同时计算分数的逻辑也写在此方法内,便于统一管理
 
-    public void flashScore(int x){} //现实得分的方法 x为相消的数,比如相消:2+2,x传入的就是2
+    public void flashScore(int x) {
+    } //现实得分的方法 x为相消的数,比如相消:2+2,x传入的就是2
 
     public boolean gameIsLive(int[][] arr) {
         return true;

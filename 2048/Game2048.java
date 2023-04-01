@@ -9,8 +9,8 @@ public class Game2048 {
         int[][] game = new int[4][4];
         System.out.println("按v键开始游戏.");
         Scanner ms = new Scanner(System.in);
-        char start = ms.next().charAt(0);
         Tools myTool = new Tools();
+        char start = ms.next().charAt(0);
         if (start == 'v') {
             myTool.initialize(game);
             System.out.println("分别用 w/W a/A s/S d/D 控制 上 左 下 右 滑动.");
