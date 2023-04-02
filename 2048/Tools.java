@@ -74,8 +74,9 @@ public class Tools {
     } //显示画面
 
     public void random(String judge, int x, int showMovePace) {
-        if (!(judge.equals(lastMove)) && showMovePace == 2) {
-            for (int i = 0; i < x; i++) {
+        if(mange(temp)) {
+            if (!(judge.equals(lastMove)) && showMovePace == 1) {
+                //for (int i = 0; i < x; i++) {
                 int randomNum1 = new Random().nextInt(temp.length);
                 int randomNum2 = new Random().nextInt(temp[0].length);
                 if (temp[randomNum1][randomNum2] == 0) {
@@ -83,17 +84,19 @@ public class Tools {
                 } else {
                     random(judge, 1, showMovePace);
                 }
+                // }
+                movePace = 0;
+            } else {
+                movePace = 1;
             }
-            movePace = 0;
-        } else {
-            movePace = 2;
         }
+        else{}
     } //随机在两个位置生成两个数，小概率是4,大概率是2
 
     public void up(int[][] arr) {
         copy(arr);
 
-        if (movePace < 2) {
+        if (movePace < 1) {
             movePace++;
         }
         for (int i = 0; i < arr[0].length; i++) {
@@ -126,7 +129,7 @@ public class Tools {
     public void down(int[][] arr) {
         copy(arr);
 
-        if (movePace < 2) {
+        if (movePace < 1) {
             movePace++;
         }
         for (int i = 0; i < arr[0].length; i++) {
@@ -159,7 +162,7 @@ public class Tools {
     public void left(int[][] arr) {
         copy(arr);
 
-        if (movePace < 2) {
+        if (movePace < 1) {
             movePace++;
         }
         //这里还是要初始化数组集合,因为sort方法形参是集合.
@@ -176,7 +179,7 @@ public class Tools {
     public void right(int[][] arr) {
         copy(arr);
 
-        if (movePace < 2) {
+        if (movePace < 1) {
             movePace++;
         }
         //方法和left一样,不过要在sort后反序一遍,然后merge,如果有需要合并的数字,则合并后再右移修正一下
@@ -347,5 +350,23 @@ public class Tools {
         lastMove = undo_lastMove;
         paintGame(temp);
     }//输出暂存的游戏状态
+
+    public boolean mange(int[][] arr)//判断用户进行操作后页面是否满格
+    {
+        boolean panduan = false;
+        for(int i = 0;i<4;i++)
+        {
+            for(int j =0;j<4;j++)
+            {
+                if(arr[i][j]==0)
+                {
+                    panduan = true;
+                }
+            }
+        }
+        return panduan;
+    }
+
 }
+
 
