@@ -44,5 +44,6 @@ public class Game2048 {
                     myTool.undo();
             }
         }
+        System.out.println("游戏结束");
     }
 }
