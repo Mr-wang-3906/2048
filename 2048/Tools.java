@@ -282,10 +282,49 @@ public class Tools {
     }//合并自己构造的数组中的两个相同的数字，同时计算分数的逻辑也写在此方法内,便于统一管理
 
     public void flashScore(int x) {
+        score +=2*x;
     } //现实得分的方法 x为相消的数,比如相消:2+2,x传入的就是2
 
     public boolean gameIsLive(int[][] arr) {
-        return true;
+        boolean panduan = false;
+        for(int i = 0;i<3;i++)
+        {
+            for(int j = 0;j<3;j++)
+            {
+                if(arr[i][j]==arr[i][j+1])
+                {
+                    panduan = true;
+                    return panduan;
+                }
+            }
+        }
+
+        for(int j = 0;j<3;j++)
+        {
+            for(int i=0;i<3;i++)
+            {
+                if(arr[i][j]==arr[i+1][j])
+                {
+                    panduan = true;
+                    return panduan;
+                }
+            }
+        }
+
+        for(int i =0;i<4;i++)
+        {
+            for(int j = 0;j<4;j++)
+            {
+                if(arr[i][j]==0)
+                {
+                    panduan = true;
+                    return panduan;
+                }
+            }
+        }
+
+        return panduan;
+
     } // 判断游戏是否结束的方法
 
     public void copy(int[][] arr) {
