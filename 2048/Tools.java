@@ -70,7 +70,7 @@ public class Tools {
             }
         }
         System.out.println();
-        System.out.println("           得分: " + score);
+        System.out.println("               得分: " + score);
     } //显示画面
 
     public void random(String judge, int x, int showMovePace) {
@@ -283,10 +283,11 @@ public class Tools {
                 break;
         }
     }//合并自己构造的数组中的两个相同的数字，同时计算分数的逻辑也写在此方法内,便于统一管理
-
+  
     public void flashScore(int x) {
-        score +=2*x;
+        score += 2 * x;
     } //现实得分的方法 x为相消的数,比如相消:2+2,x传入的就是2
+
 
     public boolean gameIsLive(int[][] arr) {
         boolean panduan = false;
