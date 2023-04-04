@@ -19,6 +19,9 @@ public class Tools {
     int undo_movePace;
     int [][] undo_arr;
 
+    boolean pd_merge = true;
+    boolean pd_move = true;
+
     public void initialize(int[][] arr) {
         temp = arr;
         undo_arr = new int[arr.length][arr[0].length];
@@ -75,7 +78,7 @@ public class Tools {
 
     public void random(String judge, int x, int showMovePace) {
         if(mange(temp)) {
-            if (!(judge.equals(lastMove)) && showMovePace == 1) {
+            if (((!(judge.equals(lastMove)) || pd_merge) || !(pd_move)) && showMovePace == 1) {
                 //for (int i = 0; i < x; i++) {
                 int randomNum1 = new Random().nextInt(temp.length);
                 int randomNum2 = new Random().nextInt(temp[0].length);
@@ -91,6 +94,8 @@ public class Tools {
             }
         }
         else{}
+        pd_merge = true;
+        pd_move = true;
     } //随机在两个位置生成两个数，小概率是4,大概率是2
 
     public void up(int[][] arr) {
@@ -234,6 +239,8 @@ public class Tools {
                             int tempNum = temp[j];
                             temp[j] = temp[j + 1];
                             temp[j + 1] = tempNum;
+                            pd_move = false;
+
                         }
                     }
                 }
@@ -242,12 +249,14 @@ public class Tools {
     } //将自己创造的数组排序
 
     public void merge(ArrayList<int[]> arrList, int x) {
+        int ch = 0;
         switch (x) {
             case 1: //从右往左判断
                 for (int[] temp : arrList) {
                     for (int i = temp.length - 1; i > 0; i--) {
                         if (temp[i] != 0) {
                             if (temp[i] == temp[i - 1]) {
+                                ch++;
                                 if (temp[i] != 1024) {
                                     flashScore(temp[i]);
                                     temp[i] *= 2;
@@ -267,6 +276,7 @@ public class Tools {
                     for (int i = 0; i < temp.length - 1; i++) {
                         if (temp[i] != 0) {
                             if (temp[i] == temp[i + 1]) {
+                                ch++;
                                 if (temp[i] != 1024) {
                                     flashScore(temp[i]);
                                     temp[i] *= 2;
@@ -282,6 +292,10 @@ public class Tools {
                 }
                 break;
         }
+        if(ch==0)
+        {
+            pd_merge = false;
+        }
     }//合并自己构造的数组中的两个相同的数字，同时计算分数的逻辑也写在此方法内,便于统一管理
 
     public void flashScore(int x) {
@@ -290,7 +304,7 @@ public class Tools {
 
     public boolean gameIsLive(int[][] arr) {
         boolean panduan = false;
-        for(int i = 0;i<3;i++)
+        for(int i = 0;i<4;i++)
         {
             for(int j = 0;j<3;j++)
             {
@@ -302,7 +316,7 @@ public class Tools {
             }
         }
 
-        for(int j = 0;j<3;j++)
+        for(int j = 0;j<4;j++)
         {
             for(int i=0;i<3;i++)
             {
