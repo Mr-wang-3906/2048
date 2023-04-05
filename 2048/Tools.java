@@ -1,3 +1,8 @@
+import javax.imageio.IIOException;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -379,6 +384,41 @@ public class Tools {
             }
         }
         return panduan;
+    }
+
+    public void FileWriter()
+    {
+        try(FileWriter fileWriter = new FileWriter("2048Data.txt")){
+
+            String data = Arrays.toString(temp);
+            fileWriter.write(data);
+            System.out.println("游戏已保存");
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void FileReader()
+    {
+        try {
+            FileReader fileReader = new FileReader("2048Data.txt");
+            int data;
+            int i = 0, j = 0;
+            while ((data = fileReader.read()) != -1) {
+                if (j > 3) {
+                    i++;
+                }
+                undo_arr[i][j] = data;
+                j++;
+            }
+            fileReader.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
 }
