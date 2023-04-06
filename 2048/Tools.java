@@ -291,7 +291,7 @@ public class Tools {
 
 
     public boolean gameIsLive(int[][] arr) {
-        for (int i = 0; i < arr.length - 1; i++) {
+        for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr[0].length - 1; j++) {
                 if (arr[i][j] == arr[i][j + 1]) {
                     return true;
@@ -299,7 +299,7 @@ public class Tools {
             }
         }
 
-        for (int j = 0; j < arr.length - 1; j++) {
+        for (int j = 0; j < arr.length; j++) {
             for (int i = 0; i < arr[0].length - 1; i++) {
                 if (arr[i][j] == arr[i + 1][j]) {
                     return true;
