@@ -6,7 +6,7 @@ import java.util.Scanner;
  */
 public class Game2048 {
     public static void main(String[] args) {
-        int[][] game = new int[2][2];
+        int[][] game = new int[4][4];
         System.out.println("按v键开始游戏.");
         Scanner ms = new Scanner(System.in);
         Tools myTool = new Tools();
