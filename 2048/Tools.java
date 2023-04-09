@@ -1,5 +1,3 @@
-import javax.imageio.IIOException;
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -7,10 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-/**
- * @author wjx
- * @version 1.0
- */
 @SuppressWarnings({"all"})
 public class Tools {
     int score = 0; //游戏得分,在flashScore()修改.
@@ -84,7 +78,7 @@ public class Tools {
     } //显示画面
 
     public void random(String judge, int x, int showMovePace) {
-        if(mange(temp)) {
+        if (mange(temp)) {
             if (((!(judge.equals(lastMove)) || pd_merge) || !(pd_move)) && showMovePace == 1) {
 
                 //for (int i = 0; i < x; i++) {
@@ -100,10 +94,9 @@ public class Tools {
             } else {
                 movePace = 1;
             }
-        } 
-        else{
-        pd_merge = true;
-        pd_move = true;
+        } else {
+            pd_merge = true;
+            pd_move = true;
         }
     } //随机在两个位置生成两个数，小概率是4,大概率是2
 
@@ -301,8 +294,7 @@ public class Tools {
                 }
                 break;
         }
-        if(ch==0)
-        {
+        if (ch == 0) {
             pd_merge = false;
         }
     }//合并自己构造的数组中的两个相同的数字，同时计算分数的逻辑也写在此方法内,便于统一管理
@@ -310,7 +302,6 @@ public class Tools {
     public void flashScore(int x) {
         score += 2 * x;
     } //现实得分的方法 x为相消的数,比如相消:2+2,x传入的就是2
-
 
     public boolean gameIsLive(int[][] arr) {
         for (int i = 0; i < arr.length; i++) {
@@ -364,8 +355,7 @@ public class Tools {
         paintGame(temp);
     }//输出暂存的游戏状态
 
-    public boolean mange(int[][] arr)//判断用户进行操作后页面是否满格
-    {
+    public boolean mange(int[][] arr) {
         boolean panduan = false;
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr[0].length; j++) {
@@ -375,15 +365,13 @@ public class Tools {
             }
         }
         return panduan;
-    }
+    }//判断用户进行操作后页面是否满格
 
-    public void FileWriter()
-    {
-        try(FileWriter fileWriter = new FileWriter("2048Data.txt")){
+    public void FileWriter() {
+        try (FileWriter fileWriter = new FileWriter("2048Data.txt")) {
             int[] data = new int[4];
-            for(int i =0;i<4;i++) {
-                for(int j =0;j<4;j++)
-                {
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
                     data[j] = temp[i][j];
                 }
                 String numData = Arrays.toString(data);
@@ -393,38 +381,32 @@ public class Tools {
             }
             System.out.println("游戏已保存");
             fileWriter.close();
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }//存档
 
-    public void FileReader()
-    {
+    public void FileReader() {
         try {
             FileReader fileReader = new FileReader("2048Data.txt");
             int ch;
             int j = 0;
-            int num=0;
+            int num = 0;
             char[] buf = new char[1024];
             int[] NumData = new int[16];
             String[] strings = new String[16];
 
             while ((ch = fileReader.read(buf)) != -1) {
-                String data = new String(buf,0,ch);
+                String data = new String(buf, 0, ch);
                 String[] numData = data.split("[ \\,]");
-                for(int i = 0;i<25;i+=2)
-                {
-                    if(i==0)
-                    {
+                for (int i = 0; i < 25; i += 2) {
+                    if (i == 0) {
                         String[] str = numData[i].split("\\[");
                         strings[j] = str[1];
                         j++;
                         continue;
                     }
-                    if(i==6||i==12||i==18)
-                    {
+                    if (i == 6 || i == 12 || i == 18) {
                         String[] str = numData[i].split("\\]");
                         strings[j] = str[0];
                         j++;
@@ -434,10 +416,9 @@ public class Tools {
                         //System.out.println(str02[1]);
                         continue;
                     }
-                    if(i==24)
-                    {
+                    if (i == 24) {
                         String[] str = numData[i].split("\\]");
-                        strings[j]=str[0];
+                        strings[j] = str[0];
                         break;
                     }
                     strings[j] = numData[i];
@@ -445,10 +426,8 @@ public class Tools {
                     //System.out.println(numData[i]);
                 }
                 //System.out.println(numData[1]);
-                for(int i =0;i<4;i++)
-                {
-                    for(int l =0;l<4;l++)
-                    {
+                for (int i = 0; i < 4; i++) {
+                    for (int l = 0; l < 4; l++) {
                         temp[i][l] = Integer.parseInt(strings[num]);
                         num++;
                     }
@@ -456,13 +435,10 @@ public class Tools {
 
             }
             fileReader.close();
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
+    }//读档
 }
 
 

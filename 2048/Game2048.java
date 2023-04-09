@@ -1,11 +1,6 @@
 import java.util.Scanner;
-
 import static java.lang.System.exit;
 
-/**
- * @author wjx
- * @version 1.0
- */
 public class Game2048 {
     public static void main(String[] args) {
         int[][] game = new int[4][4];
@@ -17,8 +12,7 @@ public class Game2048 {
             myTool.initialize(game);
             System.out.println("分别用w/W,a/A,s/S,d/D控制上,左,下,右滑动. 按r/R可撤回上一步. ");
             System.out.println("注意事项: 请勿不断重复同一操作,否则数字不会刷新");
-        }
-        else {
+        } else {
             System.out.println("您输入的按键不准确！！");
             exit(-1);
         }
