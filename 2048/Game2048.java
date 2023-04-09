@@ -49,6 +49,7 @@ public class Game2048 {
                     break;
                 case 'Z':
                 case 'z':
+                    System.out.println("666");
                     myTool.FileReader();
                     myTool.paintGame(game);
             }

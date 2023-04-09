@@ -389,10 +389,19 @@ public class Tools {
     public void FileWriter()
     {
         try(FileWriter fileWriter = new FileWriter("2048Data.txt")){
+            int[] data = new int[4];
+            for(int i =0;i<4;i++) {
+                for(int j =0;j<4;j++)
+                {
+                    data[j] = temp[i][j];
+                }
+                String numData = Arrays.toString(data);
+                fileWriter.write(numData);
 
-            String data = Arrays.toString(temp);
-            fileWriter.write(data);
+
+            }
             System.out.println("游戏已保存");
+            fileWriter.close();
         }
         catch (IOException e)
         {
@@ -404,14 +413,56 @@ public class Tools {
     {
         try {
             FileReader fileReader = new FileReader("2048Data.txt");
-            int data;
-            int i = 0, j = 0;
-            while ((data = fileReader.read()) != -1) {
-                if (j > 3) {
-                    i++;
+            int ch;
+            int j = 0;
+            int num=0;
+            char[] buf = new char[1024];
+            int[] NumData = new int[16];
+            String[] strings = new String[16];
+
+            while ((ch = fileReader.read(buf)) != -1) {
+                String data = new String(buf,0,ch);
+                String[] numData = data.split("[ \\,]");
+                for(int i = 0;i<25;i+=2)
+                {
+                    if(i==0)
+                    {
+                        String[] str = numData[i].split("\\[");
+                        strings[j] = str[1];
+                        j++;
+                        continue;
+                    }
+                    if(i==6||i==12||i==18)
+                    {
+                        String[] str = numData[i].split("\\]");
+                        strings[j] = str[0];
+                        j++;
+                        String[] str02 = str[1].split("\\[");
+                        strings[j] = str02[1];
+                        j++;
+                        //System.out.println(str02[1]);
+                        continue;
+                    }
+                    if(i==24)
+                    {
+                        String[] str = numData[i].split("\\]");
+                        strings[j]=str[0];
+                        break;
+                    }
+                    strings[j] = numData[i];
+                    j++;
+                    //System.out.println(numData[i]);
                 }
-                undo_arr[i][j] = data;
-                j++;
+                //System.out.println(numData[1]);
+                for(int i =0;i<4;i++)
+                {
+                    for(int l =0;j<4;j++)
+                    {
+                        undo_arr[i][j] = Integer.parseInt(strings[num]);
+                        num++;
+                    }
+                }
+
             }
             fileReader.close();
         }
