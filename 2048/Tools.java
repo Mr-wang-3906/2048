@@ -27,6 +27,7 @@ public class Tools {
     boolean pd_merge = true;
     boolean pd_move = true;
 
+
     public void initialize(int[][] arr) {
         temp = arr;
         undo_arr = new int[arr.length][arr[0].length];
@@ -456,9 +457,9 @@ public class Tools {
                 //System.out.println(numData[1]);
                 for(int i =0;i<4;i++)
                 {
-                    for(int l =0;j<4;j++)
+                    for(int l =0;l<4;l++)
                     {
-                        undo_arr[i][j] = Integer.parseInt(strings[num]);
+                        temp[i][l] = Integer.parseInt(strings[num]);
                         num++;
                     }
                 }
