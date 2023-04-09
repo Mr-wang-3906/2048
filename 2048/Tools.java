@@ -22,7 +22,8 @@ public class Tools {
     int movePace = 0;
     String undo_lastMove;
     int undo_movePace;
-    int [][] undo_arr;
+    int[][] undo_arr;
+    int undo_score;
 
     boolean pd_merge = true;
     boolean pd_move = true;
@@ -85,6 +86,7 @@ public class Tools {
     public void random(String judge, int x, int showMovePace) {
         if(mange(temp)) {
             if (((!(judge.equals(lastMove)) || pd_merge) || !(pd_move)) && showMovePace == 1) {
+
                 //for (int i = 0; i < x; i++) {
                 int randomNum1 = new Random().nextInt(temp.length);
                 int randomNum2 = new Random().nextInt(temp[0].length);
@@ -98,10 +100,11 @@ public class Tools {
             } else {
                 movePace = 1;
             }
-        }
-        else{}
+        } 
+        else{
         pd_merge = true;
         pd_move = true;
+        }
     } //随机在两个位置生成两个数，小概率是4,大概率是2
 
     public void up(int[][] arr) {
@@ -303,51 +306,38 @@ public class Tools {
             pd_merge = false;
         }
     }//合并自己构造的数组中的两个相同的数字，同时计算分数的逻辑也写在此方法内,便于统一管理
-  
+
     public void flashScore(int x) {
         score += 2 * x;
     } //现实得分的方法 x为相消的数,比如相消:2+2,x传入的就是2
 
 
     public boolean gameIsLive(int[][] arr) {
-        boolean panduan = false;
-        for(int i = 0;i<4;i++)
-        {
-            for(int j = 0;j<3;j++)
-            {
-                if(arr[i][j]==arr[i][j+1])
-                {
-                    panduan = true;
-                    return panduan;
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[0].length - 1; j++) {
+                if (arr[i][j] == arr[i][j + 1]) {
+                    return true;
                 }
             }
         }
 
-        for(int j = 0;j<4;j++)
-        {
-            for(int i=0;i<3;i++)
-            {
-                if(arr[i][j]==arr[i+1][j])
-                {
-                    panduan = true;
-                    return panduan;
+        for (int j = 0; j < arr.length; j++) {
+            for (int i = 0; i < arr[0].length - 1; i++) {
+                if (arr[i][j] == arr[i + 1][j]) {
+                    return true;
                 }
             }
         }
 
-        for(int i =0;i<4;i++)
-        {
-            for(int j = 0;j<4;j++)
-            {
-                if(arr[i][j]==0)
-                {
-                    panduan = true;
-                    return panduan;
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[0].length; j++) {
+                if (arr[i][j] == 0) {
+                    return true;
                 }
             }
         }
 
-        return panduan;
+        return false;
 
     } // 判断游戏是否结束的方法
 
@@ -359,9 +349,10 @@ public class Tools {
         }
         undo_movePace = movePace;
         undo_lastMove = lastMove;
+        undo_score = score;
     } //暂存游戏状态
 
-    public void undo(){
+    public void undo() {
         for (int i = 0; i < temp.length; i++) {
             for (int j = 0; j < temp[0].length; j++) {
                 temp[i][j] = undo_arr[i][j];
@@ -369,18 +360,16 @@ public class Tools {
         }
         movePace = undo_movePace;
         lastMove = undo_lastMove;
+        score = undo_score;
         paintGame(temp);
     }//输出暂存的游戏状态
 
     public boolean mange(int[][] arr)//判断用户进行操作后页面是否满格
     {
         boolean panduan = false;
-        for(int i = 0;i<4;i++)
-        {
-            for(int j =0;j<4;j++)
-            {
-                if(arr[i][j]==0)
-                {
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[0].length; j++) {
+                if (arr[i][j] == 0) {
                     panduan = true;
                 }
             }
